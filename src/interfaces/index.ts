@@ -94,10 +94,12 @@ export interface StoryCircleListViewProps extends SharedCircleListProps {
    * - `keyExtractor`
    */
   avatarFlatListProps?: CircleListViewFlatListProps;
+  newHighlights: boolean;
 }
 
 export interface StoryCircleListItemProps extends SharedCircleListProps {
   item: IUserStory;
+  newHighlights: boolean;
 }
 
 // TODO: add JSDoc comments where necessary
@@ -154,6 +156,7 @@ export interface StoryListItemProps {
   storyAvatarImageStyle?: ImageStyle;
   /** Custom styles for the main story item container */
   storyContainerStyle?: ViewStyle;
+  newHighlights: boolean;
 }
 
 export interface StoryProps {
@@ -231,4 +234,6 @@ export interface StoryProps {
   storyAvatarImageStyle?: ImageStyle;
   /** Custom styles for the main story item container */
   storyContainerStyle?: ViewStyle;
+  /** Custom linear styles of circle story */
+  newHighlights: boolean;
 }
