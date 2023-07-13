@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { usePrevious } from './helpers/StateHelpers';
 import { IUserStory, StoryCircleListItemProps } from './interfaces';
@@ -25,6 +26,7 @@ const StoryCircleListItem = ({
   handleStoryItemPress,
   avatarImageStyle,
   avatarWrapperStyle,
+  newHighlights,
 }: StoryCircleListItemProps) => {
   const [isPressed, setIsPressed] = useState(item?.seen);
 
@@ -47,37 +49,51 @@ const StoryCircleListItem = ({
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => _handleItemPress(item)}
-        style={[
-          styles.avatarWrapper,
-          {
-            height: avatarWrapperSize,
-            width: avatarWrapperSize,
-          },
-          avatarWrapperStyle,
-          !isPressed
-            ? {
-                borderColor: unPressedBorderColor ?? 'red',
-              }
-            : {
-                borderColor: pressedBorderColor ?? 'grey',
-              },
-        ]}
+      <LinearGradient
+        colors={
+          newHighlights
+            ? ['#DDA63D', '#829CC0', '#3B506E', '#F5BA45']
+            : ['transparent', 'transparent']
+        }
+        style={{
+          width: avatarWrapperSize + 6,
+          height: avatarWrapperSize + 6,
+          borderRadius: 100,
+          justifyContent: 'center',
+        }}
       >
-        <Image
+        <TouchableOpacity
+          onPress={() => _handleItemPress(item)}
           style={[
+            styles.avatarWrapper,
             {
-              height: avatarSize,
-              width: avatarSize,
-              borderRadius: 100,
+              height: avatarWrapperSize,
+              width: avatarWrapperSize,
             },
-            avatarImageStyle,
+            avatarWrapperStyle,
+            !isPressed
+              ? {
+                  borderColor: unPressedBorderColor ?? 'red',
+                }
+              : {
+                  borderColor: pressedBorderColor ?? 'grey',
+                },
           ]}
-          source={{ uri: item.user_image }}
-          defaultSource={Platform.OS === 'ios' ? DEFAULT_AVATAR : null}
-        />
-      </TouchableOpacity>
+        >
+          <Image
+            style={[
+              {
+                height: avatarSize,
+                width: avatarSize,
+                borderRadius: 100,
+              },
+              avatarImageStyle,
+            ]}
+            source={{ uri: item.user_image }}
+            defaultSource={Platform.OS === 'ios' ? DEFAULT_AVATAR : null}
+          />
+        </TouchableOpacity>
+      </LinearGradient>
       {showText && (
         <Text
           numberOfLines={1}
