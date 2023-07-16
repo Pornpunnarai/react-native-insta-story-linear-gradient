@@ -16,14 +16,12 @@ const StoryCircleListView = ({
   avatarImageStyle,
   avatarWrapperStyle,
   avatarFlatListProps,
-  newHighlights,
 }: StoryCircleListViewProps) => {
   return (
     <FlatList
       keyExtractor={(_item, index) => index.toString()}
       data={data}
       horizontal
-      style={styles.paddingLeft}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
       ListFooterComponent={<View style={styles.footer} />}
@@ -42,7 +40,6 @@ const StoryCircleListView = ({
           avatarTextStyle={avatarTextStyle}
           avatarImageStyle={avatarImageStyle}
           avatarWrapperStyle={avatarWrapperStyle}
-          newHighlights={newHighlights}
         />
       )}
       {...avatarFlatListProps}
@@ -51,9 +48,6 @@ const StoryCircleListView = ({
 };
 
 const styles = StyleSheet.create({
-  paddingLeft: {
-    paddingLeft: 12,
-  },
   footer: {
     flex: 1,
     width: 8,

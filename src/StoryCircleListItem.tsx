@@ -26,7 +26,6 @@ const StoryCircleListItem = ({
   handleStoryItemPress,
   avatarImageStyle,
   avatarWrapperStyle,
-  newHighlights,
 }: StoryCircleListItemProps) => {
   const [isPressed, setIsPressed] = useState(item?.seen);
 
@@ -46,19 +45,26 @@ const StoryCircleListItem = ({
   };
 
   const avatarWrapperSize = avatarSize + 4;
+  const gradientColors = ['#FF40E2', '#FE7DB2', '#FDBF7E'];
+  const gradientNoColors = ['#343A40', '#343A40', '#343A40'];
+  const gradientPositions = [0, 0.5, 1];
+  const gradientStart = {
+    x: 0.0,
+    y: 0.25,
+  };
+  const gradientEnd = { x: 0.5, y: 1.0 };
 
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={
-          newHighlights
-            ? ['#DDA63D', '#829CC0', '#3B506E', '#F5BA45']
-            : ['transparent', 'transparent']
-        }
+        colors={isPressed ? gradientNoColors : gradientColors}
+        locations={gradientPositions}
+        start={gradientStart}
+        end={gradientEnd}
         style={{
-          width: avatarWrapperSize + 6,
-          height: avatarWrapperSize + 6,
-          borderRadius: 100,
+          width: avatarWrapperSize + 2,
+          height: avatarWrapperSize + 2,
+          borderRadius: avatarWrapperSize / 2,
           justifyContent: 'center',
         }}
       >
@@ -71,21 +77,16 @@ const StoryCircleListItem = ({
               width: avatarWrapperSize,
             },
             avatarWrapperStyle,
-            !isPressed
-              ? {
-                  borderColor: unPressedBorderColor ?? 'red',
-                }
-              : {
-                  borderColor: pressedBorderColor ?? 'grey',
-                },
           ]}
         >
           <Image
             style={[
               {
-                height: avatarSize,
-                width: avatarSize,
-                borderRadius: 100,
+                height: avatarSize + 2,
+                width: avatarSize + 2,
+                borderColor: '#191919',
+                borderWidth: 2,
+                borderRadius: (avatarSize + 2) / 2,
               },
               avatarImageStyle,
             ]}
